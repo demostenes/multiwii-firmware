@@ -1230,6 +1230,15 @@
   #define GYRO_ORIENTATION(X, Y, Z) {imu.gyroADC[ROLL] = -Y; imu.gyroADC[PITCH] = X; imu.gyroADC[YAW] = -Z;}
 #endif
 
+#if defined(MPU9250)
+  #define MPU6050
+  #define AK8963
+  //#define ACC_ORIENTATION(X, Y, Z)  {imu.accADC[ROLL]  = -X; imu.accADC[PITCH]  = -Y; imu.accADC[YAW]  =  Z;}
+  #define GYRO_ORIENTATION(X, Y, Z) {imu.gyroADC[ROLL] =  -X; imu.gyroADC[PITCH] = Y; imu.gyroADC[YAW] = Z;}
+  #define MAG_ORIENTATION(X, Y, Z) {imu.magADC[ROLL]  =  X; imu.magADC[PITCH]  =  Y; imu.magADC[YAW]  = Z;}
+  #undef INTERNAL_I2C_PULLUPS
+#endif
+
 #if defined(MONGOOSE1_0)
   #define ITG3200
   #define ADXL345
@@ -1674,7 +1683,7 @@
   #define ACC 0
 #endif
 
-#if defined(HMC5883) || defined(HMC5843) || defined(AK8975) || defined(MAG3110)
+#if defined(HMC5883) || defined(HMC5843) || defined(AK8975) || defined(MAG3110) || defined(AK8963)
   #define MAG 1
 #else
   #define MAG 0
